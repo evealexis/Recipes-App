@@ -1,6 +1,7 @@
-const apiKey = 'ibD1ZlUgBtfofAyfbJZ9eA==L5785jyQdiErIWdF';
+const apiKey = 'kbPE2wxlTHOmxwvbU3bMzkzuJs2CVUZ8nvx6WTpC';
 
-        document.getElementById("fetchRecipe").addEventListener("click", () => {
+    function getRecipe(){
+
             const apiUrl = 'https://api.api-ninjas.com/v1/recipe?query=pasta'; 
 
             fetch(apiUrl, {
@@ -19,7 +20,7 @@ const apiKey = 'ibD1ZlUgBtfofAyfbJZ9eA==L5785jyQdiErIWdF';
             .then(data => {
                 // Check if there are recipes
                 if (data.length === 0) {
-                    document.getElementById("recipeContent").innerHTML = "<p>No recipes found.</p>";
+                    $("#recipeContent").html("<p>No recipes found.</p>");
                     return;
                 }
                 
@@ -28,8 +29,7 @@ const apiKey = 'ibD1ZlUgBtfofAyfbJZ9eA==L5785jyQdiErIWdF';
                 const recipe = data[randomIndex];
                 
                 // Display the random recipe
-                const recipeContent = document.getElementById("recipeContent");
-                recipeContent.innerHTML = `
+                $("#recipeContent").html( `
                     <h1>${recipe.title}</h1>
                     <h3>Ingredients:</h3>
                     <p>${recipe.ingredients}</p>
@@ -37,11 +37,13 @@ const apiKey = 'ibD1ZlUgBtfofAyfbJZ9eA==L5785jyQdiErIWdF';
                     <p>${recipe.servings}</p>
                     <h3>Cooking Instructions:</h3>
                     <p>${recipe.instructions}</p>
-                `;
+                `);
             })
             .catch(error => {
                 console.error(error); // Log any errors
-                const recipeContent = document.getElementById("recipeContent");
-                recipeContent.innerHTML = `<p>${error.message}</p>`; // Display error message
+                $("#recipeContent").html(`<p>${error.message}</p>`); // Display error message
             });
-        });
+        };
+    
+$("#fetchRecipe").click(getRecipe);
+
